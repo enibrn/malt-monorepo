@@ -1,0 +1,14 @@
+{
+  "name": "@enibrn/malt-ffb",
+  "module": "index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5"
+  },
+  "dependencies": {
+    "appwrite": "^17.0.1"
+  }
+}

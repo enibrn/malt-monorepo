@@ -1,0 +1,15 @@
+{
+  "name": "@enibrn/malt-ui-base-playground",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "gen": "nuxt generate",
+    "prev": "nuxt preview",
+    "prep": "nuxt prepare"
+  },
+  "dependencies": {
+    "@enibrn/malt-ui-base": "workspace:*"
+  }
+}

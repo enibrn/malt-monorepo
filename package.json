@@ -1,0 +1,9 @@
+{
+  "name": "@enibrn/malt-monorepo",
+  "private": true,
+  "workspaces": [
+    "ffb",
+    "ui-base",
+    "ui-base-playground"
+  ]
+}
