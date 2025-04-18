@@ -1,40 +1,9 @@
-import { Client, Account, type Models, ID } from 'appwrite';
+import { Account, type Models, ID } from 'appwrite';
+import type { AuthService } from '../../auth/interfaces';
+import type { MyUser } from '../../core/types';
+import { type MyResult, ResultHelper } from '../../core/result';
 
-import type { AuthService, BackendService, BackendServiceFactory } from './service';
-import type { MyUser, CloudConfig } from './types';
-
-import { type MyResult, ResultHelper } from './result';
-
-export class AppwriteBackendServiceFactory implements BackendServiceFactory {
-  public config: CloudConfig;
-
-  constructor(config: CloudConfig) {
-    this.config = config;
-  }
-
-  async create(): Promise<MyResult<AppwriteBackendService>> {
-    try {
-      var result = new AppwriteBackendService(this.config);
-      return ResultHelper.success(result);
-    } catch (error) {
-      return ResultHelper.failure(error);
-    }
-  }
-}
-
-export class AppwriteBackendService implements BackendService {
-  public auth: AuthService;
-
-  constructor(config: CloudConfig) {
-    const client = new Client();
-    client.setEndpoint(config.endpoint).setProject(config.projectId);
-
-    const account = new Account(client);
-    this.auth = new AppwriteAuthService(account);
-  }
-}
-
-class AppwriteAuthService implements AuthService {
+export class AppwriteAuthService implements AuthService {
   private account: Account;
 
   constructor(account: Account) {
@@ -88,4 +57,3 @@ class AppwriteAuthService implements AuthService {
     };
   }
 }
-

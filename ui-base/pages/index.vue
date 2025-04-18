@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import {
-  type CloudConfig,
-  type BackendService,
   type MyResult,
-  type AuthService,
-  buildBackendService,
-  type MyUser
+  type MyUser,
+  type MyError
 } from '@enibrn/malt-ffb';
-import type { MyError } from '@enibrn/malt-ffb/src/result';
 
 const { baseLayer } = useAppConfig();
 const config = useRuntimeConfig();

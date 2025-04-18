@@ -1,13 +1,12 @@
-import { AppwriteBackendServiceFactory } from './src/appwrite';
-import type { CloudConfig } from './src/types';
-import type { BackendService } from './src/service';
-import { type MyResult } from './src/result';
+import { buildBackendService } from './src/factory';
 
-export async function buildBackendService(config: CloudConfig): Promise<MyResult<BackendService>> {
-  const backendServiceFactory = new AppwriteBackendServiceFactory(config);
-  return backendServiceFactory.create();
-}
+// Re-export dei tipi core
+export type { MyUser, CloudConfig } from './src/core/types';
+export { type MyResult, MyError } from './src/core/result';
 
-export type { MyUser, CloudConfig } from './src/types';
-export type { AuthService, BackendService } from './src/service';
-export { type MyResult, MyError } from './src/result';
+// Re-export delle interfacce
+export type { AuthService } from './src/auth/interfaces';
+export type { BackendService, BackendServiceFactory } from './src/backend/interfaces';
+
+// Re-export della funzione principale
+export { buildBackendService };

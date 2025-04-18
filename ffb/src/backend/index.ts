@@ -1,0 +1,1 @@
+export type { BackendService, BackendServiceFactory } from './interfaces';
