@@ -11,13 +11,12 @@ import type { MyError } from '@enibrn/malt-ffb/src/result';
 
 const { baseLayer } = useAppConfig();
 const config = useRuntimeConfig();
+const { $backendService } = useNuxtApp();
 
 const loggedInUser = ref<MyUser|null>(null);
 const email = ref<string>('');
 const password = ref<string>('');
 const name = ref<string>('');
-
-let auth: AuthService | null = null;
 
 function handleError(error: MyError) {
   console.error(error);
@@ -29,8 +28,6 @@ const executeAuthAction = async <T>(
   action: () => Promise<MyResult<T>>, 
   onSuccess?: (data: T) => void
 ) => {
-  if (!auth) return;
-  
   const result = await action();
   console.log(result);
   
@@ -47,42 +44,29 @@ const executeAuthAction = async <T>(
 console.log('config', config.public.endpoint, config.public.projectId);
 
 onMounted(async () => {
-  const cloudConfig: CloudConfig = {
-    endpoint: config.public.endpoint as string,
-    projectId: config.public.projectId as string,
-  };
-
-  const backendServiceResult: MyResult<BackendService> = await buildBackendService(cloudConfig);
-  if (!backendServiceResult.success) {
-    handleError(backendServiceResult.error);
-    return;
-  }
-
-  auth = backendServiceResult.data.auth;
-
   await executeAuthAction(
-    () => auth!.init(),
+    () => $backendService.auth.init(),
     (user) => loggedInUser.value = user
   );
 });
 
 const login = async () => {
   await executeAuthAction(
-    () => auth!.login(email.value, password.value),
+    () => $backendService.auth.login(email.value, password.value),
     (user) => loggedInUser.value = user
   );
 };
 
 const register = async () => {
   await executeAuthAction(
-    () => auth!.signup(email.value, password.value, name.value),
+    () => $backendService.auth.signup(email.value, password.value, name.value),
     (user) => loggedInUser.value = user
   );
 };
 
 const logout = async () => {
   await executeAuthAction(
-    () => auth!.logout(),
+    () => $backendService.auth.logout(),
     () => loggedInUser.value = null
   );
 };

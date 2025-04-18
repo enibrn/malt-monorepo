@@ -10,4 +10,4 @@ export async function buildBackendService(config: CloudConfig): Promise<MyResult
 
 export type { MyUser, CloudConfig } from './src/types';
 export type { AuthService, BackendService } from './src/service';
-export { type MyResult } from './src/result';
+export { type MyResult, MyError } from './src/result';
